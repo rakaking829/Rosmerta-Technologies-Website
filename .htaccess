@@ -1,0 +1,19 @@
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, OPTIONS"
+</IfModule>
+
+Redirect 301 /smart-driving-lincence-&-rc.html https://rosmertatech.com/smart-driving-license-and-rc.html
+Redirect 301 /smart-driving-license-&-rc.html https://rosmertatech.com/smart-driving-license-and-rc.html
+Redirect 301 /registration-&-rto-services.html https://rosmertatech.com/registration-and-rto-services.html
+Redirect 301 /annual-retrurns.html https://rosmertatech.com/annual-returns.html
+Redirect 301 /three-wheelers.html https://rosmertatech.com/three-wheelers.html 
+Redirect 301 /et-award-event-details.html https://rosmertatech.com/
+
+
+
+RewriteEngine On
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^(.*)/index\.html$ /$1/ [R=301,L]
+
+
