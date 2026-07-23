@@ -3732,6 +3732,10 @@ footer {
     border-left: 0;
 }
 
+.rosblu-box img{
+    width: 90px;
+}
+
 .rosblu-box h4 {
     font-size: 2.2rem;
     line-height: 3.2rem;
@@ -3854,6 +3858,10 @@ footer {
 .inception-cont {
     display: flex;
     flex-wrap: wrap;
+}
+
+.inception-cont .inception-box img{
+    width: 120px;
 }
 
 .inception-box h3 {
