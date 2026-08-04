@@ -4188,7 +4188,7 @@ footer {
 }
 
 .event-img {
-    height: auto;
+    height: 215px;;
     overflow: hidden;
     width: 100%;
     border-radius: 1.2rem 1.2rem 0 0;
@@ -4198,6 +4198,8 @@ footer {
     transform: scale(1);
     transition: all .4s ease;
     width: 100%;
+    object-fit: cover;
+    height: 100%;
 }
 
 .event-img img:hover {
