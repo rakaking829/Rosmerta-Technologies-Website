@@ -3155,6 +3155,19 @@ footer {
     padding: 0 15px;
 }
 
+.newmedia-row .col-md-4{
+    margin-bottom: 30px;
+}
+
+.newsmedia-box{
+    height: 100%;
+}
+
+.newsmedia-box a{
+    display: inline-grid;
+    height: 100%;
+}
+
 .newsmedia-box {
     border: 3px solid#f2f2f2;
     border-radius: 10px;
