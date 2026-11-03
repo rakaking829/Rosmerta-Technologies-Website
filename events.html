@@ -90,8 +90,37 @@
     <!-- Upcoming Events -->
     <div id="upcoming" class="tab-content-new active">
       <div class="row events-row" id="upcomingEvents">
-
         <!-- Your Events List (all go here initially) --> 
+         
+         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 events-col" data-aos="fade-up" data-aos-delay="200">
+            <div class="events-box">
+               <div class="event-img"><a href="automechanika-dubai-2026-details.html" target="_blank"><img src="images/events/automechanika-dubai/Automechnica-dubai.webp" style="object-position: left" alt=""></a> </div>
+               <div class="event-text">
+                  <h4><i class="fa-solid fa-location-dot"></i> North Hall, Dubai Exhibition Centre, Expo City, Dubai</h4>
+                  <h3><a href="automechanika-dubai-2026-details.html" target="_blank">Automechanika Dubai 2026</a></h3>
+                  <p>Automechanika Dubai is the MEA region’s largest international platform for the automotive aftermarket to connect, source, and grow.</p>
+                  <div class="event-date">
+                  <p><i class="fa-solid fa-calendar-days"></i>November 10 - 12, 2026</p>
+                  <a href="automechanika-dubai-2026-details.html" target="_blank">To Know More</a>
+               </div>
+               </div>
+            </div>
+         </div>
+         
+         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 events-col" data-aos="fade-up" data-aos-delay="200">
+            <div class="events-box">
+               <div class="event-img"><a href="fada-vyapar-event-details.html" target="_blank"><img src="images/fada2026-events.webp" alt=""></a> </div>
+               <div class="event-text">
+                  <h4><i class="fa-solid fa-location-dot"></i> Sovereign 2, Hotel Le Méridien</h4>
+                  <h3><a href="fada-vyapar-event-details.html" target="_blank">FADA Vyapar Delhi</a></h3>
+                  <p>Following the continued success of our previous editions, Vyapar Delhi returns for its 3rd Edition in Delhi</p>
+                  <div class="event-date">
+                  <p><i class="fa-solid fa-calendar-days"></i> April 17, 2026</p>
+                  <a href="fada-vyapar-event-details.html" target="_blank">To Know More</a>
+               </div>
+               </div>
+            </div>
+         </div>
          
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 events-col" data-aos="fade-up" data-aos-delay="200">
             <div class="events-box">
@@ -108,8 +137,6 @@
             </div>
          </div>
          
-         
-
 
          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 events-col" data-aos="fade-up" data-aos-delay="200">
             <div class="events-box">
@@ -373,10 +400,12 @@
 
     <!-- Past Events -->
     <div id="past" class="tab-content-new">
+       
       <div class="row events-row" id="pastEvents">
+        <!--
         <p id="noPastEvents" style="text-align:center; width:100%; padding:20px; color:#666;">
-          <!-- Past events will be moved here automatically. -->
         </p>
+        -->
         
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 events-col" data-aos="fade-up" data-aos-delay="200">
             <div class="events-box">
@@ -517,6 +546,7 @@
    <script> AOS.init({duration: 1000,}) </script>
    <script>jQuery(document).ready(function($){$(function() { AOS.init(); }); });  </script>
 
+   <!--
    <script>
 function showTab(tab) {
   document.querySelectorAll(".tab-content-new").forEach(c => c.classList.remove("active"));
@@ -563,6 +593,175 @@ function movePastEvents() {
 
 document.addEventListener("DOMContentLoaded", movePastEvents);
 </script>
+-->
+   
+   <script>
+   
+document.addEventListener("DOMContentLoaded", function () {
+
+    const upcomingContainer = document.getElementById("upcomingEvents");
+    const pastContainer = document.getElementById("pastEvents");
+
+    const upcomingBtn = document.getElementById("upcomingBtn");
+    const pastBtn = document.getElementById("pastBtn");
+
+    // Get today's date without time
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Function to read event date
+    function getEventDate(event) {
+
+        const dateElement = event.querySelector(".event-date p");
+
+        if (!dateElement) return null;
+
+        const dateText = dateElement.textContent.trim();
+
+        // Supports:
+        // April 17, 2026
+        // September 05-06, 2025
+        // February 16-19, 2026
+        // 24 June 2026
+
+        const match = dateText.match(
+            /([A-Za-z]+)\s+(\d{1,2})(?:\s*-\s*(\d{1,2}))?,?\s*(\d{4})/
+        );
+
+        const alternateMatch = dateText.match(
+            /(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/
+        );
+
+        let month, day, year;
+
+        if (match) {
+            month = match[1];
+            day = match[3] || match[2];
+            year = match[4];
+
+        } else if (alternateMatch) {
+            day = alternateMatch[1];
+            month = alternateMatch[2];
+            year = alternateMatch[3];
+
+        } else {
+            return null;
+        }
+
+        const eventDate = new Date(
+            `${month} ${day}, ${year}`
+        );
+
+        if (isNaN(eventDate.getTime())) return null;
+
+        eventDate.setHours(0, 0, 0, 0);
+
+        return eventDate;
+    }
+
+    // Collect all event cards from both sections
+    const allEvents = [
+        ...upcomingContainer.querySelectorAll(".events-col"),
+        ...pastContainer.querySelectorAll(".events-col")
+    ];
+
+    const upcomingEvents = [];
+    const pastEvents = [];
+
+    // Automatically categorize events
+    allEvents.forEach(function (event) {
+
+        const eventDate = getEventDate(event);
+
+        if (!eventDate) {
+            console.warn("Invalid event date:", event);
+            return;
+        }
+
+        if (eventDate < today) {
+
+            pastEvents.push({
+                element: event,
+                date: eventDate
+            });
+
+        } else {
+
+            upcomingEvents.push({
+                element: event,
+                date: eventDate
+            });
+
+        }
+
+    });
+
+    // Sort upcoming events: nearest first
+    upcomingEvents.sort((a, b) => a.date - b.date);
+
+    // Sort past events: latest first
+    pastEvents.sort((a, b) => b.date - a.date);
+
+    // Clear existing cards
+    upcomingContainer.innerHTML = "";
+    pastContainer.innerHTML = "";
+
+    // Add Upcoming Events
+    upcomingEvents.forEach(function (event) {
+        upcomingContainer.appendChild(event.element);
+    });
+
+    // Add Past Events
+    pastEvents.forEach(function (event) {
+        pastContainer.appendChild(event.element);
+    });
+
+    // Empty state
+    if (pastEvents.length === 0) {
+
+        pastContainer.innerHTML =
+            '<p class="no-events-message">No past events available.</p>';
+
+    }
+
+    if (upcomingEvents.length === 0) {
+
+        upcomingContainer.innerHTML =
+            '<p class="no-events-message">No upcoming events available.</p>';
+
+    }
+
+    // Tab switching function
+    function showTab(tab) {
+
+        document.querySelectorAll(".tab-content-new")
+            .forEach(function (content) {
+                content.classList.remove("active");
+            });
+
+        document.querySelectorAll(".tab-btn")
+            .forEach(function (button) {
+                button.classList.remove("active");
+            });
+
+        document.getElementById(tab).classList.add("active");
+
+        document.getElementById(tab + "Btn")
+            .classList.add("active");
+
+    }
+
+    upcomingBtn.addEventListener("click", function () {
+        showTab("upcoming");
+    });
+
+    pastBtn.addEventListener("click", function () {
+        showTab("past");
+    });
+
+});
+
+   </script>
 
    
 <!-- <script>
